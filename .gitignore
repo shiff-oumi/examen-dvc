@@ -1,2 +1,18 @@
-/venv
-/clean_data.csv
+# Models
+models/
+*.pkl
+
+# Metrics
+metrics/
+
+# Data
+/data
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+*.so
+.env
+venv/
