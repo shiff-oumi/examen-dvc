@@ -13,6 +13,7 @@ stages:
     deps:
     - src/config/config.py
     - src/data/check_structure.py
+    - src/data/make_dataset.py
     - data/raw_data
     outs:
     - data/processed_data/X_train.csv
@@ -24,6 +25,7 @@ stages:
     cmd: python -m src.data.normalize_data
     deps:
     - src/config/config.py
+    - src/data/normalize_data.py
     - data/processed_data/X_train.csv
     - data/processed_data/X_test.csv
     outs:
@@ -34,6 +36,7 @@ stages:
     cmd: python -m src.models.searching_params
     deps:
     - src/config/config.py
+    - src/models/searching_params.py
     - data/processed_data/X_train_scaled.csv
     - data/processed_data/y_train.csv
     outs:
@@ -43,6 +46,7 @@ stages:
     cmd: python -m src.models.train
     deps:
     - src/config/config.py
+    - src/models/train.py
     - data/processed_data/X_train_scaled.csv
     - data/processed_data/y_train.csv
     - models/best_params.pkl
@@ -53,6 +57,7 @@ stages:
     cmd: python -m src.models.eval
     deps:
     - src/config/config.py
+    - src/models/eval.py
     - data/processed_data/X_test_scaled.csv
     - data/processed_data/y_test.csv
     - models/trained_model.pkl

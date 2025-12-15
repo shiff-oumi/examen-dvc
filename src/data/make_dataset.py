@@ -10,16 +10,15 @@ logger = logging.getLogger(__name__)
 def import_dataset(file_path):
     return pd.read_csv(file_path)
 
-def drop_columns(df):
-    list_to_drop = ["date"]
-    df.drop(list_to_drop, axis=1, inplace=True, errors="ignore")
+def drop_columns(df,columns_to_drop):
+    df.drop(columns_to_drop, axis=1, inplace=True, errors="ignore")
     return df
 
-def split_data(df):
-    target = df["silica_concentrate"]
-    feats = df.drop(["silica_concentrate"], axis=1)
+def split_data(df, target_column, test_size, random_state):
+    target = df[target_column]
+    feats = df.drop([target_column], axis=1)
     X_train, X_test, y_train, y_test = train_test_split(
-        feats, target, test_size=0.3, random_state=42
+        feats, target, test_size=test_size, random_state=random_state
     )
     return X_train, X_test, y_train, y_test
 
@@ -40,14 +39,20 @@ def main():
     logger.info("preprocessing en cours")
 
     config = load_config()
-    input_file = os.path.join(config["preprocess_data"]["input_folder"],config["preprocess_data"]["input_filename"])
-    output_folder = config["preprocess_data"]["output_folder"]
+    preprocess_config = config["preprocess_data"]
+
+    input_file = os.path.join(preprocess_config["input_folder"],preprocess_config["input_filename"])
+    output_folder = preprocess_config["output_folder"]
+    columns_to_drop = preprocess_config["drop_col"]
+    target_column = preprocess_config["target_col"]
+    test_size = preprocess_config["test_size"]
+    random_state = preprocess_config["random_state"]
 
     df = import_dataset(input_file)
 
     # Pipeline
-    df = drop_columns(df)
-    X_train, X_test, y_train, y_test = split_data(df)
+    df = drop_columns(df, columns_to_drop)
+    X_train, X_test, y_train, y_test = split_data(df, target_column, test_size, random_state)
 
     # Sortie
     create_folder_if_necessary(output_folder)

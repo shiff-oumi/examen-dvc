@@ -1,18 +1,36 @@
-# Models
-models/
-*.pkl
-
-# Metrics
-metrics/
-
-# Data
-/data
-
 # Python
 __pycache__/
 *.py[cod]
 *$py.class
-.Python
 *.so
-.env
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Environnement
 venv/
+
+# Data (géré par DVC)
+/data/raw_data/
+/data/processed_data/
+/data/predictions.csv
+
+# Models (géré par DVC)
+/models/
+*.pkl
+
+# Metrics
+/metrics/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db

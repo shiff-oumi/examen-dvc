@@ -8,7 +8,7 @@ normalize_data:
 	python -m src.data.normalize_data
 
 grid_search:
-	python -m src.models.seraching_params
+	python -m src.models.searching_params
 
 train : 
 	python -m src.models.train
@@ -16,8 +16,6 @@ train :
 evaluate:
 	python -m src.models.eval
 	
-
-# Nettoyer les fichiers téléchargés
 clean:
 	rm -rf data/preprocessed_data/*.csv
 	rm -rf data/raw_data/*.csv

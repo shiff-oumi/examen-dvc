@@ -22,7 +22,7 @@ def import_raw_data(raw_data_relative_path,
             text_file.write(content.encode('utf-8'))
             text_file.close()
         else:
-            print(f'Error accessing the object {input_file}:', response.status_code)
+            print(f'Error accessing the object {file_url}:', response.status_code)
                 
 def main():
     config = load_config()
